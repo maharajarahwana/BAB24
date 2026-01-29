@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>BAB24</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>BAB1</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Latihan Kosakata</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .card {
+    background: white;
+    padding: 30px;
+    width: 400px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  input {
+    width: 90%;
+    padding: 8px;
+    margin-top: 15px;
+  }
+  button {
+    margin-top: 20px;
+    padding: 8px 15px;
+    cursor: pointer;
+  }
+  .result {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .wrong { color: red; }
+  .correct { color: green; }
+  ol { text-align:left; max-height:400px; overflow:auto; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h2 id="question"></h2>
+  <input type="text" id="answerInput" placeholder="Tulis jawaban di sini">
+  <br>
+  <button id="nextBtn">Selanjutnya</button>
+</div>
+
+<script>
+let questions = [
+{ soal: "은행", jawaban: "bank" },
+{ soal: "작성하다", jawaban: "mengisi / menulis" },
+{ soal: "어떻게", jawaban: "bagaimana" },
+{ soal: "모바일 뱅킹", jawaban: "M-banking" },
+{ soal: "오다", jawaban: "datang" },
+{ soal: "다운로드", jawaban: "download" },
+{ soal: "-(으)려고", jawaban: "bermaksud untuk" },
+{ soal: "현금 인출기", jawaban: "mesin atm" },
+{ soal: "-(으)면 안되다", jawaban: "Tidak boleh" },
+{ soal: "입금", jawaban: "menabung" },
+{ soal: "송금", jawaban: "pengiriman uang" },
+{ soal: "출금", jawaban: "penarikan" },
+{ soal: "계좌 이체", jawaban: "transfer antar rekening" },
+{ soal: "잔액", jawaban: "saldo" },
+{ soal: "버튼을 누르다", jawaban: "menekan tombol" },
+{ soal: "이체", jawaban: "transfer" },
+{ soal: "환전하다", jawaban: "menukar uang" },
+{ soal: "은행 업무", jawaban: "layanan bank" },
+{ soal: "대출", jawaban: "pinjaman" },
+{ soal: "환율이 오르다", jawaban: "nilai tukar naik" },
+{ soal: "환율이 내리다", jawaban: "nilai tukar turun" },
+{ soal: "체크 카드", jawaban: "kartu debit" },
+{ soal: "통장 정리", jawaban: "mutasi rekening" },
+{ soal: "신용 카드", jawaban: "kartu kredit" },
+{ soal: "카드 발급", jawaban: "penerbitan kartu" },
+{ soal: "거래 내역", jawaban: "riwayat transaksi" },
+{ soal: "돈을 찾다", jawaban: "mengambil uang" },
+{ soal: "자동이체", jawaban: "transfer otomatis" },
+{ soal: "외국인 등록증", jawaban: "Kartu identitas orang asing" },
+{ soal: "한국의 은행", jawaban: "bank korea" },
+{ soal: "돈을 보내다", jawaban: "mengirim uang" },
+{ soal: "목적", jawaban: "tujuan" },
+{ soal: "달러", jawaban: "dollar" },
+{ soal: "필요하다", jawaban: "memerlukan" },
+{ soal: "돈을 넣다", jawaban: "menyimpan uang" },
+{ soal: "예금을 하다", jawaban: "menabung" },
+{ soal: "통장", jawaban: "buku tabungan" },
+{ soal: "예금주", jawaban: "pemilik rekening" },
+{ soal: "외환거래", jawaban: "transaksi valuta asing" },
+{ soal: "계좌 번호", jawaban: "nomor rekening" },
+{ soal: "임대 계약", jawaban: "kontrak sewa" },
+{ soal: "도장", jawaban: "stempel" },
+{ soal: "공과금 청구서", jawaban: "tagihan utilitas" },
+{ soal: "서명", jawaban: "tanda tangan" },
+{ soal: "구체적인", jawaban: "spesifik" },
+{ soal: "번호표를 뽑다", jawaban: "mengambil nomor antrian" },
+{ soal: "거래 날짜", jawaban: "tanggal transaksi" },
+{ soal: "선택하다", jawaban: "memilih" },
+{ soal: "찾으신 금액", jawaban: "jumlah uang yang diambil" },
+{ soal: "적합하다", jawaban: "sesuai" },
+{ soal: "맡기신 금액", jawaban: "jumlah uang setoran" },
+{ soal: "영업 시간", jawaban: "waktu operasional" },
+{ soal: "창구", jawaban: "teller / loket bank" },
+{ soal: "경우", jawaban: "kondisi" },
+{ soal: "신청서", jawaban: "formulir" },
+{ soal: "영업점", jawaban: "cabang bank" },
+{ soal: "거주시", jawaban: "tempat tinggal" },
+{ soal: "앱", jawaban: "aplikasi" },
+{ soal: "증명", jawaban: "bukti" },
+{ soal: "인터넷 전문 은행", jawaban: "internet bank" },
+{ soal: "서류", jawaban: "dokumen" },
+{ soal: "생기다", jawaban: "muncul" },
+{ soal: "은행원", jawaban: "pegawai bank" },
+{ soal: "다양하다", jawaban: "bermacam-macam" },
+{ soal: "남은 금액", jawaban: "sisa uang / saldo" },
+{ soal: "점차", jawaban: "secara bertahap" },
+];
+
+// Acak soal
+questions = questions.sort(() => Math.random() - 0.5);
+
+let index = 0;
+let score = 0;
+let userAnswers = [];
+
+const questionEl = document.getElementById("question");
+const answerInput = document.getElementById("answerInput");
+const nextBtn = document.getElementById("nextBtn");
+const card = document.querySelector(".card");
+
+function showQuestion() {
+  questionEl.textContent = "Soal " + (index + 1) + ": " + questions[index].soal;
+  answerInput.value = "";
+  answerInput.focus();
+}
+
+nextBtn.addEventListener("click", () => {
+  const userAnswer = answerInput.value.trim().toLowerCase();
+  userAnswers[index] = userAnswer; // simpan jawaban sesuai index
+
+  if (userAnswer === questions[index].jawaban) {
+    score++;
+  }
+
+  index++;
+  if (index < questions.length) {
+    showQuestion();
+  } else {
+    showResult();
+  }
+});
+
+function showResult() {
+  let answerList = "";
+  questions.forEach((q, i) => {
+    if (userAnswers[i] === q.jawaban) {
+      answerList += `<li>${q.soal} = <span class="correct">${q.jawaban}</span></li>`;
+    } else {
+      answerList += `<li>${q.soal} = <span class="correct">${q.jawaban}</span><br>
+                     Jawaban kamu: <span class="wrong">${userAnswers[i] || "(kosong)"}</span></li>`;
+    }
+  });
+
+  card.innerHTML = `
+    <h2>Hasil</h2>
+    <p class="result">Nilai: ${score} / ${questions.length}</p>
+    <hr>
+    <p>Kunci Jawaban:</p>
+    <ol>${answerList}</ol>
+  `;
+}
+
+showQuestion();
+</script>
+
+</body>
+</html>
+    
+  </body>
+  
+</html>
